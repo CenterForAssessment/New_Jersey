@@ -12,7 +12,7 @@ require(SGP)
 ### Load data
 
 load("Data/New_Jersey_Data_LONG_2013.Rdata")
-load("Data/Base_Files/New_Jersey_SGP.Rdata")
+load("Data/New_Jersey_SGP.Rdata")
 
 
 ### updateSGP
