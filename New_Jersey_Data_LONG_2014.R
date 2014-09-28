@@ -30,6 +30,8 @@ setnames(New_Jersey_Data_LONG_2014, tmp.variable.names)
 
 New_Jersey_Data_LONG_2014[CONTENT_AREA=="Math",CONTENT_AREA:="MATHEMATICS"]
 
+New_Jersey_Data_LONG_2014[,GRADE:=as.character(as.numeric(GRADE))]
+
 New_Jersey_Data_LONG_2014[,County.Name:=as.factor(County.Name)]
 setattr(New_Jersey_Data_LONG_2014$County.Name, "levels", sapply(levels(New_Jersey_Data_LONG_2014$County.Name), capwords))
 
