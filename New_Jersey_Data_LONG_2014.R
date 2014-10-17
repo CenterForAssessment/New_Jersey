@@ -19,11 +19,23 @@ New_Jersey_Data_MATH <- fread("Data/Base_Files/NJASK_2013_2014_MATH.csv", colCla
 ### Combine ELA and MATH
 
 New_Jersey_Data_LONG_2014 <- rbindlist(list(New_Jersey_Data_ELA, New_Jersey_Data_MATH))
+setkey(New_Jersey_Data_LONG_2014, esID, SSID)
 
+###  Load in corrected esIDs - 10/9/14
+
+esid <- fread("Data/Missing_SGP_2014.txt", colClasses=rep("character", 3))
+setnames(esid, c("esID_1314", "SID_1314"), c("esID", "SSID"))
+setkey(esid, esID, SSID)
+esid <- esid[!duplicated(esid)] # 2 kids with duplicate rows
+
+New_Jersey_Data_LONG_2014 <- merge(New_Jersey_Data_LONG_2014, esid, all.x=TRUE)
+# New_Jersey_Data_LONG_2014[esID==esID_1213] # 11 kids with same esID and esID_1213 -> all have different grade levels
+New_Jersey_Data_LONG_2014[which(!is.na(esID_1213)), esID := esID_1213]
+New_Jersey_Data_LONG_2014[, esID_1213 := NULL]
 
 ### Tidy up data
 
-tmp.variable.names <- c("YEAR", "Testing.Program", "CONTENT_AREA", "GRADE", "ID", "Student.ID..SSID.", "DISTRICT_NUMBER", "School.Code", "County.Name",
+tmp.variable.names <- c("ID", "Student.ID..SSID.", "YEAR", "Testing.Program", "CONTENT_AREA", "GRADE", "DISTRICT_NUMBER", "School.Code", "County.Name",
 	"DISTRICT_NAME", "SCHOOL_NAME", "DFG", "Gender", "Race.Ethnicity.Combined","Title.I.LAL", "Title.I.Math", "Special.Education..SE.", "General.ED", "Former.LEP",
 	"Current.LEP", "Time.in.District.Less.Than.1.Year", "Economically.Disadvantaged", "Migrant", "Homeless", "SCALE_SCORE", "ACHIEVEMENT_LEVEL")   
 setnames(New_Jersey_Data_LONG_2014, tmp.variable.names)
