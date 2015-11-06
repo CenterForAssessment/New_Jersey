@@ -25,7 +25,7 @@ New_Jersey_SGP@Data[which(duplicated(New_Jersey_SGP@Data))-1, VALID_CASE := "INV
 
 ### Load 2015 raw PARCC data
 
-New_Jersey_Data_LONG_2015 <- fread("Data/Base_Files/NJ_PARCC_2014_2015.csv") #, colClasses=rep("character", 26)
+New_Jersey_Data_LONG_2015 <- fread("Data/Base_Files/NJ_PARCC_2014_2015.csv", colClasses=rep("character", 153))
 
 
 ### Tidy up data
@@ -34,9 +34,11 @@ New_Jersey_Data_LONG_2015 <- fread("Data/Base_Files/NJ_PARCC_2014_2015.csv") #, 
 New_Jersey_Data_LONG_2015[, YEAR := '2015']
 
 #### GRADE
-table(New_Jersey_Data_LONG_2015$testCode, New_Jersey_Data_LONG_2015$assessmentGrade)
+# table(New_Jersey_Data_LONG_2015$testCode, New_Jersey_Data_LONG_2015$assessmentGrade)
 New_Jersey_Data_LONG_2015[, GRADE := gsub("Grade ", "", assessmentGrade)]
+New_Jersey_Data_LONG_2015[which(testCode=="ALG01"), GRADE := "8"]
 New_Jersey_Data_LONG_2015[which(GRADE==""), GRADE := "EOCT"]
+# table(New_Jersey_Data_LONG_2015$testCode, New_Jersey_Data_LONG_2015$GRADE)
 
 ####  CONTENT_AREA / "subject"
 New_Jersey_Data_LONG_2015[, CONTENT_AREA := toupper(gsub(" ", "_", subject))]
@@ -48,7 +50,8 @@ New_Jersey_Data_LONG_2015[which(ACHIEVEMENT_LEVEL=="Level "), ACHIEVEMENT_LEVEL 
 
 ####  Demographic variables
 setnames(New_Jersey_Data_LONG_2015, 
-				 c("stateStudentIdentifier", "optionalStateData7", "summativeScaleScore", "firstName", "lastName", "responsibleSchoolInstitutionIdentifier", "responsibleSchoolInstitutionName", "responsibleDistrictIdentifier", "responsibleDistrictName",
+				 c("stateStudentIdentifier", "optionalStateData7", "summativeScaleScore", "firstName", "lastName", 
+				 	"responsibleSchoolInstitutionIdentifier", "responsibleSchoolInstitutionName", "responsibleDistrictIdentifier", "responsibleDistrictName",
 				 	"sex", "federalRaceEthnicity", "primaryDisabilityType", "titleIIILimitedEnglishProficientParticipationStatus", "economicDisadvantageStatus", "migrantStatus"), 
 				 c("ID", "SCALE_SCORE", "SCALE_SCORE_ACTUAL", "FIRST_NAME", "LAST_NAME", "SCHOOL_NUMBER", "SCHOOL_NAME", "DISTRICT_NUMBER", "DISTRICT_NAME", 
 				 	"Gender", "Race.Ethnicity.Combined", "Special.Education..SE.", "Current.LEP", "Economically.Disadvantaged", "Migrant"))
@@ -103,6 +106,7 @@ New_Jersey_Data_LONG_2015[,SCHOOL_ENROLLMENT_STATUS:=factor(1, levels=0:1, label
 
 ####  Set SCALE_SCORE to numeric and only include non-NA scores in long data
 New_Jersey_Data_LONG_2015[,SCALE_SCORE:=as.numeric(SCALE_SCORE)]
+New_Jersey_Data_LONG_2015[,SCALE_SCORE:=as.numeric(SCALE_SCORE_ACTUAL)]
 New_Jersey_Data_LONG_2015 <- New_Jersey_Data_LONG_2015[!is.na(SCALE_SCORE)]
 
 ### Indentify Valid Cases
@@ -129,7 +133,7 @@ New_Jersey_Data_LONG_2015[intersect(c(which(duplicated(New_Jersey_Data_LONG_2015
 
 ### Subset new long data and save the results
 
-New_Jersey_Data_LONG_2015 <- New_Jersey_Data_LONG_2015[, c(intersect(names(New_Jersey_SGP@Data), names(New_Jersey_Data_LONG_2015)), "FIRST_NAME", "LAST_NAME"), with=FALSE]
+New_Jersey_Data_LONG_2015 <- New_Jersey_Data_LONG_2015[, c(intersect(names(New_Jersey_SGP@Data), names(New_Jersey_Data_LONG_2015)), "SCALE_SCORE_ACTUAL", "FIRST_NAME", "LAST_NAME"), with=FALSE]
 setkeyv(New_Jersey_Data_LONG_2015, c("VALID_CASE", "CONTENT_AREA", "YEAR", "ID"))
 
 save(New_Jersey_Data_LONG_2015, file="Data/New_Jersey_Data_LONG_2015.Rdata")
