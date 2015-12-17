@@ -22,11 +22,12 @@ ELA_2015.config <- list(
 		sgp.content.areas=rep('ELA', 6),
 		sgp.panel.years=as.character(2009:2015),
 		sgp.grade.sequences=list(c('3', '4'), c('3', '4', '5'), c('3', '4', '5', '6'), c('3', '4', '5', '6', '7'),
-														 c('3', '4', '5', '6', '7', '8'), c('3', '4', '5', '6', '7', '8', '9'))),
+								 c('3', '4', '5', '6', '7', '8'), c('3', '4', '5', '6', '7', '8', '9'))),
 	ELA.2015 = list( # Skip Year
 		sgp.content.areas=rep('ELA', 6),
 		sgp.panel.years=as.character(2008:2013, 2015),
-		sgp.grade.sequences=list(c('3', '4', '5', '6', '7', '8', '10'))))
+		sgp.grade.sequences=list(c('3', '4', '5', '6', '7', '8', '10')),
+		sgp.projection.grade.sequences="NO_PROJECTIONS"))
 
 MATHEMATICS_2015.config <- list(
 	MATHEMATICS.2015 = list(
@@ -39,9 +40,9 @@ MATHEMATICS_2015.config <- list(
 		sgp.grade.sequences=list(c('3', '4', '5', '6', '7', 'EOCT')),
 		sgp.projection.grade.sequences="NO_PROJECTIONS"),
 	ALGEBRA_II.2015 = list(
-		sgp.content.areas=c(rep('MATHEMATICS', 4), 'ALGEBRA_I', 'ALGEBRA_II'),
-		sgp.panel.years=as.character(2009:2015),
-		sgp.grade.sequences=list(c('3', '4', '5', '6', '7', 'EOCT', 'EOCT')),
+		sgp.content.areas=c(rep('MATHEMATICS', 6), 'ALGEBRA_II'),
+		sgp.panel.years=as.character(2008:2013, 2015),
+		sgp.grade.sequences=list(c('3', '4', '5', '6', '7', '8', 'EOCT')),
 		sgp.projection.grade.sequences="NO_PROJECTIONS"))
 
 NJ.config <- c(ELA_2015.config, MATHEMATICS_2015.config)
