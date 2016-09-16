@@ -77,7 +77,7 @@ New_Jersey_Data_LONG_2013 <- as.data.table(New_Jersey_Data_LONG_2013)
 setkeyv(New_Jersey_Data_LONG_2013, c("VALID_CASE", "ID", "YEAR", "CONTENT_AREA"))
 
 ###  Inspect the dublicates first to see what's going on.
-dup.ids<-New_Jersey_Data_LONG_2013$ID[which(duplicated(New_Jersey_Data_LONG_2013))]
+dup.ids<-New_Jersey_Data_LONG_2013$ID[which(duplicated(New_Jersey_Data_LONG_2013, by=key(New_Jersey_Data_LONG_2013)))]
 dups<-New_Jersey_Data_LONG_2013[New_Jersey_Data_LONG_2013$ID %in% dup.ids]
 length(dup.ids) # only a handful, but we'll try to keep the best of the lot
 dim(dups)
@@ -87,7 +87,7 @@ summary(dups)
 
 setkeyv(New_Jersey_Data_LONG_2013, c("VALID_CASE", "ID", "YEAR", "CONTENT_AREA", "SCALE_SCORE"))
 setkeyv(New_Jersey_Data_LONG_2013, c("VALID_CASE", "ID", "YEAR", "CONTENT_AREA"))
-New_Jersey_Data_LONG_2013[["VALID_CASE"]][which(duplicated(New_Jersey_Data_LONG_2013) & New_Jersey_Data_LONG_2013$VALID_CASE=="VALID_CASE")-1] <- "INVALID_CASE"
+New_Jersey_Data_LONG_2013[["VALID_CASE"]][which(duplicated(New_Jersey_Data_LONG_2013, by=key(New_Jersey_Data_LONG_2013)) & New_Jersey_Data_LONG_2013$VALID_CASE=="VALID_CASE")-1] <- "INVALID_CASE"
 
 
 # ENROLLMENT_STATUS

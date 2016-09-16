@@ -101,13 +101,13 @@ setkeyv(New_Jersey_Data_LONG_2014, c("VALID_CASE", "CONTENT_AREA", "YEAR", "ID")
 
 ###  Inspect the dublicates first to see what's going on.
 
-dups <- New_Jersey_Data_LONG_2014[unique(New_Jersey_Data_LONG_2014[duplicated(New_Jersey_Data_LONG_2014), c("VALID_CASE", "CONTENT_AREA", "YEAR", "ID"), with=FALSE])]
+dups <- New_Jersey_Data_LONG_2014[unique(New_Jersey_Data_LONG_2014[duplicated(New_Jersey_Data_LONG_2014, by=key(New_Jersey_Data_LONG_2014)), c("VALID_CASE", "CONTENT_AREA", "YEAR", "ID"), with=FALSE])]
 
 ### Invalidate lowest score for duplicates.
 
 setkeyv(New_Jersey_Data_LONG_2014, c("VALID_CASE", "CONTENT_AREA", "YEAR", "ID", "SCALE_SCORE"))
 setkeyv(New_Jersey_Data_LONG_2014, c("VALID_CASE", "CONTENT_AREA", "YEAR", "ID"))
-New_Jersey_Data_LONG_2014[which(duplicated(New_Jersey_Data_LONG_2014))-1, VALID_CASE:="INVALID_CASE"]
+New_Jersey_Data_LONG_2014[which(duplicated(New_Jersey_Data_LONG_2014, by=key(New_Jersey_Data_LONG_2014)))-1, VALID_CASE:="INVALID_CASE"]
 
 
 ### ENROLLMENT_STATUS

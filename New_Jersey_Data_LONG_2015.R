@@ -119,15 +119,15 @@ New_Jersey_Data_LONG_2015[which(CONTENT_AREA %in% c("INTEGRATED_MATHEMATICS_I", 
 
 setkey(New_Jersey_Data_LONG_2015, VALID_CASE, CONTENT_AREA, GRADE, ID, SCALE_SCORE)
 setkey(New_Jersey_Data_LONG_2015, VALID_CASE, CONTENT_AREA, GRADE, ID)
-# sum(duplicated(New_Jersey_Data_LONG_2015[VALID_CASE != "INVALID_CASE"])) # 10 duplicates with valid SSIDs -- all have same SSID and esID, so appear valid - take the highest score
-# dups <- data.table(New_Jersey_Data_LONG_2015[unique(c(which(duplicated(New_Jersey_Data_LONG_2015))-1, which(duplicated(New_Jersey_Data_LONG_2015)))), ], key=key(New_Jersey_Data_LONG_2015))
-New_Jersey_Data_LONG_2015[which(duplicated(New_Jersey_Data_LONG_2015))-1, VALID_CASE := "INVALID_CASE"]
+# sum(duplicated(New_Jersey_Data_LONG_2015[VALID_CASE != "INVALID_CASE"], by=key(New_Jersey_Data_LONG_2015))) # 10 duplicates with valid SSIDs -- all have same SSID and esID, so appear valid - take the highest score
+# dups <- data.table(New_Jersey_Data_LONG_2015[unique(c(which(duplicated(New_Jersey_Data_LONG_2015, by=key(New_Jsersey_Data_LONG_2015)))-1, which(duplicated(New_Jersey_Data_LONG_2015)))), ], key=key(New_Jersey_Data_LONG_2015))
+New_Jersey_Data_LONG_2015[which(duplicated(New_Jersey_Data_LONG_2015, by=key(New_Jersey_Data_LONG_2015)))-1, VALID_CASE := "INVALID_CASE"]
 
 
 #  Still 3 kids with duplicates if Grade ignored -- take highest score again ...
 setkey(New_Jersey_Data_LONG_2015, VALID_CASE, CONTENT_AREA, ID, SCALE_SCORE)
 setkey(New_Jersey_Data_LONG_2015, VALID_CASE, CONTENT_AREA, ID)
-New_Jersey_Data_LONG_2015[which(duplicated(New_Jersey_Data_LONG_2015))-1, VALID_CASE := "INVALID_CASE"]
+New_Jersey_Data_LONG_2015[which(duplicated(New_Jersey_Data_LONG_2015, by=key(New_Jersey_Data_LONG_2015)))-1, VALID_CASE := "INVALID_CASE"]
 
 ### Subset new long data and save the results -- only keep variables already included in New_Jersey_SGP@Data
 
