@@ -45,6 +45,7 @@ New_Jersey_SGP <- updateSGP(
 
 visualizeSGP(
 	New_Jersey_SGP,
+	state="NJ_ORIGINAL",
 	sgPlot.content_areas = c("ELA", "MATHEMATICS"),
 	gaPlot.content_areas = c("ELA", "MATHEMATICS"),
 	sgPlot.demo.report=TRUE,
