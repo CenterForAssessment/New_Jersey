@@ -26,6 +26,7 @@ NJ.config <- c(ELA_2016.config, MATHEMATICS_2016.config)
 New_Jersey_SGP <- updateSGP(
 			New_Jersey_SGP,
 			New_Jersey_Data_LONG_2016,
+			state="NJ_ORIGINAL",
 			sgp.config=NJ.config,
 			steps = c("analyzeSGP", "combineSGP", "summarizeSGP", "outputSGP"), #
 			sgp.percentiles.baseline=FALSE,
