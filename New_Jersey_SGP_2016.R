@@ -10,7 +10,6 @@ require(SGP)
 require(data.table)
 
 ### Load data
-setwd('/media/Data/Dropbox/SGP/New_Jersey')
 load("Data/New_Jersey_Data_LONG_2016.Rdata")
 load("Data/New_Jersey_SGP.Rdata")
 

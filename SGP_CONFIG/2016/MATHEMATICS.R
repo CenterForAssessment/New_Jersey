@@ -38,7 +38,7 @@ GEOMETRY.2016.config <- list(
 		sgp.content.areas=c(rep("MATHEMATICS", 6), "ALGEBRA_I", "GEOMETRY"),
 		sgp.panel.years=as.character(2009:2016),
 		sgp.grade.sequences=list(c(as.character(3:8), "EOCT", "EOCT")),
-		sgp.norm.group.preference=1),
+		sgp.norm.group.preference=0),
 
 #	GEOMETRY.2016 = list( ### 926 Total Cases from Grade Level Math to Geometry
 #		sgp.content.areas=c("MATHEMATICS", "GEOMETRY"),
@@ -50,7 +50,7 @@ GEOMETRY.2016.config <- list(
 		sgp.content.areas=c("ALGEBRA_II", "GEOMETRY"),
 		sgp.panel.years=c("2015", "2016"),
 		sgp.grade.sequences=list(c("EOCT", "EOCT")),
-		sgp.norm.group.preference=3),
+		sgp.norm.group.preference=1)
 )
 
 ALGEBRA_II.2016.config <- list(
@@ -58,7 +58,7 @@ ALGEBRA_II.2016.config <- list(
 		sgp.content.areas=c("GEOMETRY", "ALGEBRA_II"),
 		sgp.panel.years=c("2015", "2016"),
 		sgp.grade.sequences=list(c("EOCT", "EOCT")),
-		sgp.norm.group.preference=1),
+		sgp.norm.group.preference=0),
 
 #	ALGEBRA_II.2016 = list( ### Total of 138 Cases from Grade Level Math to Algebra II
 #		sgp.content.areas=c("MATHEMATICS", "ALGEBRA_II"),
@@ -69,6 +69,6 @@ ALGEBRA_II.2016.config <- list(
 	ALGEBRA_II.2016 = list( ### 8.114 Cases
 		sgp.content.areas=c(rep("MATHEMATICS", 5), "ALGEBRA_I", "ALGEBRA_II"),
 		sgp.panel.years=c(as.character(2010:2016)),
-		sgp.grade.sequences=list(c(as.character(3:8), "EOCT", "EOCT")),
-		sgp.norm.group.preference=3),
+		sgp.grade.sequences=list(c(as.character(4:8), "EOCT", "EOCT")),
+		sgp.norm.group.preference=1)
 )
