@@ -23,7 +23,7 @@ ALGEBRA_I.2016.config <- list(
 		sgp.content.areas=c(rep("MATHEMATICS", 5), "ALGEBRA_I"),
 		sgp.panel.years=c(as.character(2011:2015), "2016"),
 		sgp.grade.sequences=list(c(as.character(3:6), "EOCT"), c(as.character(3:7), "EOCT")),
-		sgp.norm.group.preference=1), # 8th grade
+		sgp.norm.group.preference=1) # 8th grade
 
 #	ALGEBRA_I.2016 = list( ### 634 Cases
 #		sgp.content.areas=c("GEOMETRY", "ALGEBRA_I"),
