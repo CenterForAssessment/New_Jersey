@@ -16,6 +16,5 @@ ELA_2016.config <- list(
 		sgp.content.areas=rep("ELA", 7),
 		sgp.panel.years=c("2009", "2010", "2011", "2012", "2013", "2015", "2016"),
 		sgp.grade.sequences=list(c("4", "5", "6", "7", "8", "10", "11")),
-		sgp.projection.grade.sequences="NO_PROJECTIONS"
 	)
 )
