@@ -12,7 +12,7 @@ MATHEMATICS_2016.config <- list(
 		sgp.projection.sequence = "MATHEMATICS")
 )
 
-ALGEBRA_I.2016.config <- list(
+ALGEBRA_I_2016.config <- list(
 	ALGEBRA_I.2016 = list(
 		sgp.content.areas=c(rep("MATHEMATICS", 6), "ALGEBRA_I"),
 		sgp.panel.years=as.character(2010:2016),
@@ -32,7 +32,7 @@ ALGEBRA_I.2016.config <- list(
 #		sgp.norm.group.preference=2),
 )
 
-GEOMETRY.2016.config <- list(
+GEOMETRY_2016.config <- list(
 	GEOMETRY.2016 = list(
 		sgp.content.areas=c(rep("MATHEMATICS", 6), "ALGEBRA_I", "GEOMETRY"),
 		sgp.panel.years=as.character(2009:2016),
@@ -52,7 +52,7 @@ GEOMETRY.2016.config <- list(
 		sgp.norm.group.preference=1)
 )
 
-ALGEBRA_II.2016.config <- list(
+ALGEBRA_II_2016.config <- list(
 	ALGEBRA_II.2016 = list(
 		sgp.content.areas=c("GEOMETRY", "ALGEBRA_II"),
 		sgp.panel.years=c("2015", "2016"),
