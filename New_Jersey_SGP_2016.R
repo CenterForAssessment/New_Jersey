@@ -18,7 +18,7 @@ load("Data/New_Jersey_SGP.Rdata")
 
 source("SGP_CONFIG/2016/ELA.R")
 source("SGP_CONFIG/2016/MATHEMATICS.R")
-NJ.config <- c(ELA_2016.config, MATHEMATICS_2016.config)
+NJ.config <- c(ELA_2016.config, MATHEMATICS_2016.config, ALGEBRA_I_2016.config, GEOMETRY_2016.config, ALGEBRA_II_2016.config)
 
 
 ### updateSGP
@@ -28,7 +28,7 @@ New_Jersey_SGP <- updateSGP(
 			New_Jersey_Data_LONG_2016,
 			state="NJ_ORIGINAL",
 			sgp.config=NJ.config,
-			steps = c("analyzeSGP", "combineSGP", "summarizeSGP", "outputSGP"), #
+			steps = c("prepareSGP", "analyzeSGP", "combineSGP", "summarizeSGP", "outputSGP"), #
 			sgp.percentiles.baseline=FALSE,
 			sgp.projections.baseline=FALSE,
 			sgp.projections.lagged.baseline=FALSE,

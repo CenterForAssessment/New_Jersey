@@ -88,6 +88,9 @@ New_Jersey_Data_LONG_2016[,Migrant:=factor(Migrant)]
 setattr(New_Jersey_Data_LONG_2016$Migrant, "levels", c("Migrant: No", "Migrant: Yes"))
 New_Jersey_Data_LONG_2016[,Migrant:=as.character(Migrant)]
 
+## School Number
+
+New_Jersey_Data_LONG_2016[,SCHOOL_NUMBER:=paste(DISTRICT_NUMBER, SCHOOL_NUMBER, sep="")]
 ##  District and School Names
 
 New_Jersey_Data_LONG_2016[,DISTRICT_NAME:=as.factor(DISTRICT_NAME)]

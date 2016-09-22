@@ -30,7 +30,6 @@ ALGEBRA_I.2016.config <- list(
 #		sgp.panel.years=c("2015", "2016"),
 #		sgp.grade.sequences=list(c("EOCT", "EOCT")),
 #		sgp.norm.group.preference=2),
-
 )
 
 GEOMETRY.2016.config <- list(
