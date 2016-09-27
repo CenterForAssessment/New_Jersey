@@ -111,6 +111,18 @@ New_Jersey_Data_LONG_2016[,SCALE_SCORE:=as.numeric(SCALE_SCORE)]
 New_Jersey_Data_LONG_2016[,SCALE_SCORE_ACTUAL:=as.numeric(SCALE_SCORE_ACTUAL)]
 New_Jersey_Data_LONG_2016[,SCALE_SCORE_CSEM:=as.numeric(SCALE_SCORE_CSEM)]
 
+# Load scaling constants
+
+scaling.constants <- fread("Data/Base_Files/2015-2016 PARCC Scaling Constants.csv"))
+setkey(scaling.constants, CONTENT_AREA, GRADE)
+setkey(New_Jersey_Data_LONG_2015, CONTENT_AREA, GRADE)
+New_Jersey_Data_LONG_2016 <- scaling.constants[New_Jersey_Data_LONG_2015]
+setnames(New_Jersey_Data_LONG_2016, "SCALE_SCORE_CSEM", "SCALE_SCORE_CSEM_SS")
+New_Jersey_Data_LONG_2016[,SCALE_SCORE_CSEM:=(as.numeric(SCALE_SCORE_CSEM_SS))/a]
+New_Jersey_Data_LONG_2016[,a:=NULL]
+New_Jersey_Data_LONG_2016[,b:=NULL]
+
+
 ###
 ###		Indentify Valid Cases
 ###

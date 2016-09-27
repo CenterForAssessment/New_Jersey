@@ -22,9 +22,9 @@ New_Jersey_Data_LONG_2015 <- rbindlist(list(NJ_ELA, NJ_MATH))
 ###
 
 ####  Rename variables
-setnames(New_Jersey_Data_LONG_2015, names(New_Jersey_Data_LONG_2015), gsub(" |/", "", names(New_Jersey_Data_LONG_2015)))	
+setnames(New_Jersey_Data_LONG_2015, names(New_Jersey_Data_LONG_2015), gsub(" |/", "", names(New_Jersey_Data_LONG_2015)))
 
-setnames(New_Jersey_Data_LONG_2015, 
+setnames(New_Jersey_Data_LONG_2015,
 				 c("SSID", "IRTTheta", "SummativeScaleScore", "SummativeCSEM", "Subject", "GradeLevelWhenAssessed", "SummativePerformanceLevel",
 				 	"ResponsibleSchoolInstitutionIdentifier", "ResponsibleSchoolInstitutionName", "ResponsibleDistrictIdentifier", "ResponsibleDistrictName", "ResponsibleCountyName",
 				 	"SpecialEducationClassification", "TitleIIILimitedEnglishProficientParticipationStatus", "EconomicallyDisadvantaged"),
@@ -48,17 +48,17 @@ New_Jersey_Data_LONG_2015[which(!CONTENT_AREA %in% c("ELA", "MATHEMATICS")), GRA
 New_Jersey_Data_LONG_2015[, ACHIEVEMENT_LEVEL := paste("Level", ACHIEVEMENT_LEVEL)]
 
 ####  Demographic Variables
-New_Jersey_Data_LONG_2015[, Race_Ethnicity_Combined := as.character(NA)] 
-New_Jersey_Data_LONG_2015[which(HispanicorLatinoEthnicity=="Y"), Race_Ethnicity_Combined := "Hispanic"] 
-New_Jersey_Data_LONG_2015[which(AmericanIndianorAlaskaNative=="Y"), Race_Ethnicity_Combined := "Native American"] 
-New_Jersey_Data_LONG_2015[which(Asian=="Y"), Race_Ethnicity_Combined := "Asian"] 
-New_Jersey_Data_LONG_2015[which(BlackorAfricanAmerican=="Y"), Race_Ethnicity_Combined := "Black"] 
-New_Jersey_Data_LONG_2015[which(NativeHawaiianorOtherPacificIslander=="Y"), Race_Ethnicity_Combined := "Pacific Islander"] 
-New_Jersey_Data_LONG_2015[which(White=="Y"), Race_Ethnicity_Combined := "White"] 
-New_Jersey_Data_LONG_2015[which(TwoorMoreRaces=="Y"), Race_Ethnicity_Combined := "Two or More Races"] 
-New_Jersey_Data_LONG_2015[which(is.na(Race_Ethnicity_Combined)), Race_Ethnicity_Combined := "Other"] 
+New_Jersey_Data_LONG_2015[, Race_Ethnicity_Combined := as.character(NA)]
+New_Jersey_Data_LONG_2015[which(HispanicorLatinoEthnicity=="Y"), Race_Ethnicity_Combined := "Hispanic"]
+New_Jersey_Data_LONG_2015[which(AmericanIndianorAlaskaNative=="Y"), Race_Ethnicity_Combined := "Native American"]
+New_Jersey_Data_LONG_2015[which(Asian=="Y"), Race_Ethnicity_Combined := "Asian"]
+New_Jersey_Data_LONG_2015[which(BlackorAfricanAmerican=="Y"), Race_Ethnicity_Combined := "Black"]
+New_Jersey_Data_LONG_2015[which(NativeHawaiianorOtherPacificIslander=="Y"), Race_Ethnicity_Combined := "Pacific Islander"]
+New_Jersey_Data_LONG_2015[which(White=="Y"), Race_Ethnicity_Combined := "White"]
+New_Jersey_Data_LONG_2015[which(TwoorMoreRaces=="Y"), Race_Ethnicity_Combined := "Two or More Races"]
+New_Jersey_Data_LONG_2015[which(is.na(Race_Ethnicity_Combined)), Race_Ethnicity_Combined := "Other"]
 
-New_Jersey_Data_LONG_2015[, 
+New_Jersey_Data_LONG_2015[,
 		c("HispanicorLatinoEthnicity", "AmericanIndianorAlaskaNative", "Asian", "BlackorAfricanAmerican", "NativeHawaiianorOtherPacificIslander", "White", "TwoorMoreRaces") := NULL]
 
 New_Jersey_Data_LONG_2015[,Gender:=as.factor(Gender)]
@@ -129,6 +129,17 @@ setkey(New_Jersey_Data_LONG_2015, VALID_CASE, CONTENT_AREA, ID, SCALE_SCORE)
 setkey(New_Jersey_Data_LONG_2015, VALID_CASE, CONTENT_AREA, ID)
 New_Jersey_Data_LONG_2015[which(duplicated(New_Jersey_Data_LONG_2015, by=key(New_Jersey_Data_LONG_2015)))-1, VALID_CASE := "INVALID_CASE"]
 
+# Load scaling constants
+
+scaling.constants <- fread("Data/Base_Files/2014-2015 PARCC Scaling Constants.csv"))
+setkey(scaling.constants, CONTENT_AREA, GRADE)
+setkey(New_Jersey_Data_LONG_2015, CONTENT_AREA, GRADE)
+New_Jersey_Data_LONG_2015 <- scaling.constants[New_Jersey_Data_LONG_2015]
+setnames(New_Jersey_Data_LONG_2015, "SCALE_SCORE_CSEM", "SCALE_SCORE_CSEM_SS")
+New_Jersey_Data_LONG_2015[,SCALE_SCORE_CSEM:=(as.numeric(SCALE_SCORE_CSEM_SS))/a]
+New_Jersey_Data_LONG_2015[,a:=NULL]
+New_Jersey_Data_LONG_2015[,b:=NULL]
+
 ### Subset new long data and save the results -- only keep variables already included in New_Jersey_SGP@Data
 
 load("Data/New_Jersey_SGP.Rdata")
@@ -151,7 +162,7 @@ SGPstateData[["NJ"]][["Variable_Name_Lookup"]] <- read.csv("/media/Data/Dropbox/
 
 setnames(New_Jersey_SGP@Data, gsub("[.]", "_", names(New_Jersey_SGP@Data)))
 
-###  Switch ID and 
+###  Switch ID and
 
 id.lookup <- unique(New_Jersey_Data_LONG_2015[, list(ID, esID, YEAR, VALID_CASE)])[!is.na(esID) & ID != "" & VALID_CASE=="VALID_CASE"]
 id.lookup <- id.lookup[, list(ID, esID)]
