@@ -37,7 +37,7 @@ New_Jersey_SGP <- updateSGP(
 					sgp.projections.lagged.baseline=FALSE,
 					calculate.simex=TRUE,
 					save.intermediate.results=FALSE,
-					parallel.config=list(BACKEND="FOREACH", TYPE="doParallel", WORKERS=list(TAUS=24, SIMEX=24)))
+					parallel.config=list(BACKEND="PARALLEL", WORKERS=list(PERCENTILES=10)))
 
 
 ### STEP 2: analyzeSGP for student growth projections
@@ -60,6 +60,7 @@ New_Jersey_SGP <- analyzeSGP(
 New_Jersey_SGP <- combineSGP(
 					New_Jersey_SGP,
 					state="NJ_ORIGINAL",
+					years="2016",
 					sgp.target.scale.scores=TRUE,
 					sgp.config=NJ.config,
 					parallel.config=list(BACKEND="FOREACH", TYPE="doParallel", WORKERS=list(SGP_SCALE_SCORE_TARGETS=10)))
